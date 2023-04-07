@@ -2,15 +2,17 @@ const express = require('express');
 const mysql=require('mysql');
 const app = express();
 
-const connectionConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: 'kkkk',
-    database: 'userauth'
-  };
+const connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'kkkk'
+  });
 
 app.use(express.static('public'));
-
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 
 app.get('/', (req, res) => {
     res.render('top.ejs');
@@ -23,7 +25,7 @@ app.post('/create',(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
 
-    cinnection.query(
+    connection.query(
         'INSERT INTO users (username,email,password) VALUES(?,?,?)',
         [username,email,password],
         (error,results)=>{
