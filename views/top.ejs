@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>トップページ</title>
 </head>
+
 <body>
     <ul>
-        <li><a href="/login">ログイン</a></li>
-        <li><a href="/usercreate">新規ユーザー作成</a></li>
+        <% if (locals.session.userId==null) { %>
+            <li><a href="/usercreate">新規ユーザー作成</a></li>
+            <li><a href="/login">ログイン</a></li>
+            <% } else { %>
+                <li><a href="/useredit">ユーザー編集</a></li>
+            <li><a href="/logout">ログアウト</a></li>
+                <% } %>
     </ul>
     <h1>トップページです</h1>
 </body>
+
 </html>
